@@ -3,27 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Old Steel Brothers</title>
+  <title>Old Steel Brothers – Επισκευές & Αναπαλαιώσεις</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- NAVIGATION -->
-  <nav class="navbar">
+  <!-- CUSTOM CURSOR -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <div class="loader-gear">⚙</div>
+    <div class="loader-text">OLD STEEL BROTHERS</div>
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
     <div class="nav-inner">
-      <div class="logo">
-        <span class="logo-icon">⚙</span>
-        <span class="logo-text">Old Steel<br /><strong>Brothers</strong></span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#services">Υπηρεσίες</a></li>
-        <li><a href="#gallery">Γκαλερί</a></li>
-        <li><a href="#parts">Ανταλλακτικά</a></li>
-        <li><a href="#location">Τοποθεσία</a></li>
-        <li><a href="#contact" class="btn-nav">Επικοινωνία</a></li>
+      <a href="#" class="logo">
+        <div class="logo-emblem">
+          <span class="gear-spin">⚙</span>
+        </div>
+        <div class="logo-words">
+          <span class="logo-old">Old Steel</span>
+          <strong>Brothers</strong>
+        </div>
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#services" class="nav-a">Υπηρεσίες</a></li>
+        <li><a href="#gallery" class="nav-a">Γκαλερί</a></li>
+        <li><a href="#stats" class="nav-a">Εμπειρία</a></li>
+        <li><a href="#parts" class="nav-a">Ανταλλακτικά</a></li>
+        <li><a href="#location" class="nav-a">Τοποθεσία</a></li>
+        <li><a href="#contact" class="nav-cta">Επικοινωνία</a></li>
       </ul>
       <button class="hamburger" id="hamburger" aria-label="Menu">
         <span></span><span></span><span></span>
@@ -32,50 +49,106 @@
   </nav>
 
   <!-- HERO -->
-  <header class="hero">
+  <header class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <canvas class="sparks" id="sparks"></canvas>
     <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <p class="hero-tag">Πενταπλάτανος Γιαννιτσών</p>
-      <h1>Old Steel<br /><span>Brothers</span></h1>
-      <p class="hero-sub">Επισκευές · Ανακατασκευές · Ανταλλακτικά</p>
+
+    <div class="hero-content reveal-hero">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Πενταπλάτανος Γιαννιτσών
+      </div>
+      <h1 class="hero-title">
+        <span class="line-wrap"><span class="line-text">OLD</span></span>
+        <span class="line-wrap accent-wrap"><span class="line-text accent-text">STEEL</span></span>
+        <span class="line-wrap"><span class="line-text">BROTHERS</span></span>
+      </h1>
+      <p class="hero-sub">
+        <span>Επισκευές</span>
+        <span class="sep">✦</span>
+        <span>Ανακατασκευές</span>
+        <span class="sep">✦</span>
+        <span>Ανταλλακτικά</span>
+      </p>
       <div class="hero-btns">
-        <a href="#services" class="btn-primary">Οι Υπηρεσίες μας</a>
-        <a href="#contact" class="btn-outline">Επικοινωνήστε μαζί μας</a>
+        <a href="#services" class="btn-fire">
+          <span>Οι Υπηρεσίες μας</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn-ghost">Επικοινωνήστε μαζί μας</a>
       </div>
     </div>
-    <div class="hero-scroll">
-      <span>&#8595;</span>
+
+    <div class="hero-scroll-indicator">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
     </div>
   </header>
+
+  <!-- MARQUEE STRIP -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span>ΕΠΙΣΚΕΥΕΣ ΑΥΤΟΚΙΝΗΤΩΝ</span><span class="mx">⚙</span>
+      <span>ΕΠΙΣΚΕΥΕΣ ΜΗΧΑΝΩΝ</span><span class="mx">⚙</span>
+      <span>ΑΝΑΠΑΛΑΙΩΣΕΙΣ</span><span class="mx">⚙</span>
+      <span>ΑΝΑΚΑΤΑΣΚΕΥΕΣ</span><span class="mx">⚙</span>
+      <span>ΑΝΤΑΛΛΑΚΤΙΚΑ</span><span class="mx">⚙</span>
+      <span>ΙΣΤΟΡΙΚΑ ΟΧΗΜΑΤΑ</span><span class="mx">⚙</span>
+      <span>ΕΠΙΣΚΕΥΕΣ ΑΥΤΟΚΙΝΗΤΩΝ</span><span class="mx">⚙</span>
+      <span>ΕΠΙΣΚΕΥΕΣ ΜΗΧΑΝΩΝ</span><span class="mx">⚙</span>
+      <span>ΑΝΑΠΑΛΑΙΩΣΕΙΣ</span><span class="mx">⚙</span>
+      <span>ΑΝΑΚΑΤΑΣΚΕΥΕΣ</span><span class="mx">⚙</span>
+      <span>ΑΝΤΑΛΛΑΚΤΙΚΑ</span><span class="mx">⚙</span>
+      <span>ΙΣΤΟΡΙΚΑ ΟΧΗΜΑΤΑ</span><span class="mx">⚙</span>
+    </div>
+  </div>
 
   <!-- SERVICES -->
   <section id="services" class="section services">
     <div class="container">
       <div class="section-header">
-        <h2>Υπηρεσίες</h2>
-        <div class="divider"></div>
-        <p>Ό,τι χρειαστεί το όχημά σας, εμείς το αναλαμβάνουμε.</p>
+        <p class="section-tag reveal">Τι κάνουμε</p>
+        <h2 class="reveal">ΥΠΗΡΕΣΙΕΣ</h2>
+        <div class="divider reveal"></div>
       </div>
-      <div class="cards">
-        <div class="card">
-          <div class="card-icon">🔧</div>
+      <div class="service-grid">
+        <div class="service-card reveal" data-delay="0">
+          <div class="sc-number">01</div>
+          <div class="sc-icon-wrap">
+            <div class="sc-icon">🔧</div>
+          </div>
           <h3>Επισκευές Αυτοκινήτων</h3>
           <p>Επισκευές αυτοκινήτων όλων των κυβισμών και μαρκών. Εμπειρία και αξιοπιστία σε κάθε εργασία.</p>
+          <div class="sc-line"></div>
         </div>
-        <div class="card">
-          <div class="card-icon">🏍️</div>
+        <div class="service-card reveal" data-delay="100">
+          <div class="sc-number">02</div>
+          <div class="sc-icon-wrap">
+            <div class="sc-icon">🏍️</div>
+          </div>
           <h3>Επισκευές Μηχανών</h3>
           <p>Επισκευές μηχανακιών όλου του κυβισμού. Από μικρά scooter έως μεγάλες μοτοσικλέτες.</p>
+          <div class="sc-line"></div>
         </div>
-        <div class="card featured">
-          <div class="card-icon">🏆</div>
+        <div class="service-card reveal featured-card" data-delay="200">
+          <div class="sc-number">03</div>
+          <div class="sc-icon-wrap">
+            <div class="sc-icon">🏆</div>
+          </div>
           <h3>Ανακατασκευές & Αναπαλαιώσεις</h3>
           <p>Ανακατασκευές και αναπαλαιώσεις ιστορικών αυτοκινήτων. Αναβιώνουμε κλασικά οχήματα με σεβασμό στην ιστορία τους.</p>
+          <div class="sc-line"></div>
+          <div class="featured-badge">Premium</div>
         </div>
-        <div class="card">
-          <div class="card-icon">🔩</div>
+        <div class="service-card reveal" data-delay="300">
+          <div class="sc-number">04</div>
+          <div class="sc-icon-wrap">
+            <div class="sc-icon">🔩</div>
+          </div>
           <h3>Πώληση Ανταλλακτικών</h3>
           <p>Μεγάλη γκάμα ανταλλακτικών για αυτοκίνητα και μηχανές. Γνήσια και aftermarket ανταλλακτικά.</p>
+          <div class="sc-line"></div>
         </div>
       </div>
     </div>
@@ -84,44 +157,88 @@
   <!-- GALLERY -->
   <section id="gallery" class="section gallery">
     <div class="container">
-      <div class="section-header light">
-        <h2>Γκαλερί</h2>
-        <div class="divider"></div>
-        <p>Μερικά από τα οχήματα που έχουμε επισκευάσει και αναπαλαιώσει.</p>
+      <div class="section-header">
+        <p class="section-tag reveal">Δουλειά μας</p>
+        <h2 class="reveal light-h">ΓΚΑΛΕΡΙ</h2>
+        <div class="divider reveal"></div>
       </div>
-      <div class="gallery-grid">
-        <div class="gallery-item gi-1">
-          <div class="gallery-label">Κλασικό Αυτοκίνητο</div>
+    </div>
+    <div class="gallery-full">
+      <div class="gallery-item gi-1 reveal-gallery" data-delay="0">
+        <div class="gi-overlay">
+          <span>Κλασικό Αυτοκίνητο</span>
         </div>
-        <div class="gallery-item gi-2">
-          <div class="gallery-label">Αναπαλαίωση</div>
+      </div>
+      <div class="gallery-item gi-2 reveal-gallery" data-delay="80">
+        <div class="gi-overlay">
+          <span>Αναπαλαίωση</span>
         </div>
-        <div class="gallery-item gi-3">
-          <div class="gallery-label">Μηχανή</div>
+      </div>
+      <div class="gallery-item gi-3 reveal-gallery" data-delay="160">
+        <div class="gi-overlay">
+          <span>Vintage Μηχανή</span>
         </div>
-        <div class="gallery-item gi-4">
-          <div class="gallery-label">Ανακατασκευή</div>
+      </div>
+      <div class="gallery-item gi-4 reveal-gallery" data-delay="240">
+        <div class="gi-overlay">
+          <span>Ανακατασκευή</span>
         </div>
-        <div class="gallery-item gi-5">
-          <div class="gallery-label">Vintage Car</div>
+      </div>
+      <div class="gallery-item gi-5 reveal-gallery" data-delay="320">
+        <div class="gi-overlay">
+          <span>Classic Car</span>
         </div>
-        <div class="gallery-item gi-6">
-          <div class="gallery-label">Εργαστήριο</div>
+      </div>
+      <div class="gallery-item gi-6 reveal-gallery" data-delay="400">
+        <div class="gi-overlay">
+          <span>Εργαστήριο</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- PARTS LINK -->
-  <section id="parts" class="section parts-cta">
+  <!-- STATS -->
+  <section id="stats" class="section stats-section">
+    <div class="stats-bg"></div>
     <div class="container">
-      <div class="parts-inner">
-        <div class="parts-text">
-          <h2>Βρείτε Ανταλλακτικά</h2>
-          <p>Επισκεφθείτε την αγγελία μας στο Car.gr για πλήρη λίστα διαθέσιμων ανταλλακτικών και μεταχειρισμένων οχημάτων.</p>
+      <div class="stats-grid">
+        <div class="stat-item reveal">
+          <div class="stat-num" data-target="500">0</div>
+          <div class="stat-plus">+</div>
+          <div class="stat-label">Επισκευές</div>
         </div>
-        <a href="https://xtreme.car.gr/parts/" target="_blank" rel="noopener noreferrer" class="btn-primary btn-lg">
-          Δείτε τα Ανταλλακτικά μας →
+        <div class="stat-item reveal" data-delay="100">
+          <div class="stat-num" data-target="15">0</div>
+          <div class="stat-plus">+</div>
+          <div class="stat-label">Χρόνια Εμπειρίας</div>
+        </div>
+        <div class="stat-item reveal" data-delay="200">
+          <div class="stat-num" data-target="80">0</div>
+          <div class="stat-plus">+</div>
+          <div class="stat-label">Ιστορικά Οχήματα</div>
+        </div>
+        <div class="stat-item reveal" data-delay="300">
+          <div class="stat-num" data-target="100">0</div>
+          <div class="stat-plus">%</div>
+          <div class="stat-label">Ικανοποίηση</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTS CTA -->
+  <section id="parts" class="parts-cta">
+    <div class="parts-bg"></div>
+    <div class="container">
+      <div class="parts-inner reveal">
+        <div class="parts-text">
+          <p class="section-tag" style="color:#fff9">Βρείτε ό,τι ψάχνετε</p>
+          <h2>Ανταλλακτικά<br /><span>στο Car.gr</span></h2>
+          <p class="parts-desc">Επισκεφθείτε την αγγελία μας για πλήρη λίστα διαθέσιμων ανταλλακτικών και μεταχειρισμένων οχημάτων.</p>
+        </div>
+        <a href="https://xtreme.car.gr/parts/" target="_blank" rel="noopener noreferrer" class="btn-fire btn-fire-dark">
+          <span>Δείτε τα Ανταλλακτικά</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>
     </div>
@@ -131,57 +248,53 @@
   <section id="location" class="section location">
     <div class="container">
       <div class="section-header">
-        <h2>Τοποθεσία</h2>
-        <div class="divider"></div>
-        <p>Βρείτε μας στον Πενταπλάτανο Γιαννιτσών.</p>
+        <p class="section-tag reveal">Πού είμαστε</p>
+        <h2 class="reveal">ΤΟΠΟΘΕΣΙΑ & ΕΠΙΚΟΙΝΩΝΙΑ</h2>
+        <div class="divider reveal"></div>
       </div>
       <div class="loc-grid">
-        <div class="map-wrap">
+        <div class="map-wrap reveal">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3023.0!2d22.4032!3d40.7891!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a847e02b5e1b5b%3A0x0!2sPentaplatanos%2C+Giannitsa!5e0!3m2!1sel!2sgr!4v1699000000000"
-            width="100%"
-            height="400"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Old Steel Brothers - Χάρτης">
+            width="100%" height="420" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade" title="Old Steel Brothers">
           </iframe>
         </div>
-        <div id="contact" class="contact-info">
+        <div id="contact" class="contact-card reveal" data-delay="150">
           <h3>Επικοινωνία</h3>
           <div class="contact-items">
             <div class="contact-item">
-              <span class="c-icon">📍</span>
+              <div class="ci-icon">📍</div>
               <div>
                 <strong>Διεύθυνση</strong>
                 <p>Πενταπλάτανος, Γιαννιτσά</p>
               </div>
             </div>
             <div class="contact-item">
-              <span class="c-icon">📞</span>
+              <div class="ci-icon">📞</div>
               <div>
                 <strong>Τηλέφωνο</strong>
                 <p><a href="tel:+30XXXXXXXXXX">Επικοινωνήστε μαζί μας</a></p>
               </div>
             </div>
             <div class="contact-item">
-              <span class="c-icon">✉️</span>
+              <div class="ci-icon">✉️</div>
               <div>
                 <strong>Email</strong>
                 <p><a href="mailto:info@oldsteelbrothers.gr">info@oldsteelbrothers.gr</a></p>
               </div>
             </div>
             <div class="contact-item">
-              <span class="c-icon">🕐</span>
+              <div class="ci-icon">🕐</div>
               <div>
                 <strong>Ώρες Λειτουργίας</strong>
                 <p>Δευτ – Παρ: 09:00 – 18:00<br />Σάββατο: 09:00 – 14:00</p>
               </div>
             </div>
           </div>
-          <a href="mailto:info@oldsteelbrothers.gr" class="btn-primary" style="margin-top:1.5rem;display:inline-block;">
-            Στείλτε μας Email
+          <a href="mailto:info@oldsteelbrothers.gr" class="btn-fire" style="margin-top:2rem;">
+            <span>Στείλτε μας Email</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </a>
         </div>
       </div>
@@ -190,43 +303,168 @@
 
   <!-- FOOTER -->
   <footer class="footer">
+    <div class="footer-glow"></div>
     <div class="container">
-      <div class="footer-inner">
-        <div class="footer-logo">
-          <span class="logo-icon">⚙</span>
-          <span>Old Steel Brothers</span>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="gear-spin footer-gear">⚙</span>
+          <div>
+            <div class="footer-name">Old Steel Brothers</div>
+            <div class="footer-loc">Πενταπλάτανος Γιαννιτσών</div>
+          </div>
         </div>
-        <p>Πενταπλάτανος Γιαννιτσών &nbsp;|&nbsp; Επισκευές · Αναπαλαιώσεις · Ανταλλακτικά</p>
-        <a href="https://xtreme.car.gr/parts/" target="_blank" rel="noopener noreferrer" class="footer-link">
-          Δείτε μας στο Car.gr →
+        <div class="footer-links-group">
+          <a href="#services">Υπηρεσίες</a>
+          <a href="#gallery">Γκαλερί</a>
+          <a href="#parts">Ανταλλακτικά</a>
+          <a href="#contact">Επικοινωνία</a>
+        </div>
+        <a href="https://xtreme.car.gr/parts/" target="_blank" rel="noopener noreferrer" class="footer-cta">
+          Car.gr →
         </a>
       </div>
-      <p class="copy">&copy; 2024 Old Steel Brothers. Όλα τα δικαιώματα διατηρούνται.</p>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Old Steel Brothers. Όλα τα δικαιώματα διατηρούνται.</p>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Hamburger menu
-    const ham = document.getElementById('hamburger');
-    const navLinks = document.querySelector('.nav-links');
-    ham.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
-      ham.classList.toggle('active');
-    });
+  /* ── LOADER ── */
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    setTimeout(() => loader.classList.add('done'), 1200);
+  });
 
-    // Smooth scroll + close menu on link click
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', () => {
-        navLinks.classList.remove('open');
-        ham.classList.remove('active');
-      });
-    });
+  /* ── CUSTOM CURSOR ── */
+  const cursor = document.getElementById('cursor');
+  const dot    = document.getElementById('cursorDot');
+  let mx=0, my=0, cx=0, cy=0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.cssText=`left:${mx}px;top:${my}px`; });
+  (function animCursor(){
+    cx += (mx-cx)*.12; cy += (my-cy)*.12;
+    cursor.style.cssText=`left:${cx}px;top:${cy}px`;
+    requestAnimationFrame(animCursor);
+  })();
+  document.querySelectorAll('a,button,.service-card,.gallery-item').forEach(el=>{
+    el.addEventListener('mouseenter',()=>cursor.classList.add('big'));
+    el.addEventListener('mouseleave',()=>cursor.classList.remove('big'));
+  });
 
-    // Navbar scroll effect
-    window.addEventListener('scroll', () => {
-      document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 50);
+  /* ── NAVBAR SCROLL ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  /* ── HAMBURGER ── */
+  const ham = document.getElementById('hamburger');
+  const nl  = document.getElementById('navLinks');
+  ham.addEventListener('click', () => {
+    nl.classList.toggle('open');
+    ham.classList.toggle('active');
+  });
+  document.querySelectorAll('.nav-a,.nav-cta').forEach(a=>a.addEventListener('click',()=>{
+    nl.classList.remove('open'); ham.classList.remove('active');
+  }));
+
+  /* ── SCROLL REVEAL ── */
+  const revealEls = document.querySelectorAll('.reveal, .reveal-gallery');
+  const revealObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const delay = e.target.dataset.delay || 0;
+        setTimeout(()=>e.target.classList.add('visible'), Number(delay));
+        revealObs.unobserve(e.target);
+      }
     });
+  }, {threshold:0.12});
+  revealEls.forEach(el=>revealObs.observe(el));
+
+  /* ── COUNTER ANIMATION ── */
+  const counters = document.querySelectorAll('.stat-num');
+  const counterObs = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = +el.dataset.target;
+        const duration = 1600;
+        const start = performance.now();
+        const tick = (now)=>{
+          const p = Math.min((now-start)/duration, 1);
+          const ease = 1-Math.pow(1-p,3);
+          el.textContent = Math.round(ease*target);
+          if(p<1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        counterObs.unobserve(el);
+      }
+    });
+  },{threshold:0.5});
+  counters.forEach(c=>counterObs.observe(c));
+
+  /* ── HERO LINE ANIMATION ── */
+  setTimeout(()=>{
+    document.querySelectorAll('.line-text').forEach((el,i)=>{
+      setTimeout(()=>el.classList.add('in'),200+i*180);
+    });
+    document.querySelectorAll('.hero-badge,.hero-sub,.hero-btns,.hero-scroll-indicator').forEach((el,i)=>{
+      setTimeout(()=>el.style.opacity='1',900+i*120);
+    });
+  }, 1300);
+
+  /* ── SPARKS CANVAS ── */
+  const canvas = document.getElementById('sparks');
+  const ctx    = canvas.getContext('2d');
+  let particles = [];
+  function resizeCanvas(){
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  class Particle {
+    constructor(){this.reset();}
+    reset(){
+      this.x = Math.random()*canvas.width;
+      this.y = canvas.height + 10;
+      this.vx = (Math.random()-0.5)*1.2;
+      this.vy = -(Math.random()*1.5+0.5);
+      this.alpha = Math.random()*0.6+0.2;
+      this.size  = Math.random()*2+0.5;
+      this.color = Math.random()>0.5 ? '#c0392b' : '#d4a017';
+    }
+    update(){
+      this.x+=this.vx; this.y+=this.vy;
+      this.alpha-=0.004;
+      if(this.alpha<=0) this.reset();
+    }
+    draw(){
+      ctx.save();
+      ctx.globalAlpha=this.alpha;
+      ctx.fillStyle=this.color;
+      ctx.shadowColor=this.color;
+      ctx.shadowBlur=8;
+      ctx.beginPath();
+      ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  for(let i=0;i<80;i++) particles.push(new Particle());
+  (function animParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{p.update();p.draw();});
+    requestAnimationFrame(animParticles);
+  })();
+
+  /* ── PARALLAX HERO BG ── */
+  window.addEventListener('scroll', ()=>{
+    const y = window.scrollY;
+    document.querySelector('.hero-bg').style.transform = `translateY(${y*0.4}px)`;
+  });
   </script>
-
 </body>
 </html>
