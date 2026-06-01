@@ -37,7 +37,8 @@
           <strong>Brothers</strong>
         </div>
       </a>
-      <ul class="nav-links" id="navLinks">
+      <!-- Desktop only nav links -->
+      <ul class="nav-links">
         <li><a href="#services" class="nav-a">Υπηρεσίες</a></li>
         <li><a href="#gallery" class="nav-a">Γκαλερί</a></li>
         <li><a href="#stats" class="nav-a">Εμπειρία</a></li>
@@ -50,6 +51,25 @@
       </button>
     </div>
   </nav>
+
+  <!-- MOBILE MENU: outside navbar so position:fixed works on iOS -->
+  <div class="mobile-panel" id="mobilePanel">
+    <div class="mobile-panel-top">
+      <span class="mobile-logo-text">Old Steel Brothers</span>
+      <button class="mobile-close" id="mobileClose" aria-label="Close">✕</button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="#services" class="mnav-a">Υπηρεσίες</a>
+      <a href="#gallery" class="mnav-a">Γκαλερί</a>
+      <a href="#stats" class="mnav-a">Εμπειρία</a>
+      <a href="#parts" class="mnav-a">Ανταλλακτικά</a>
+      <a href="#location" class="mnav-a">Τοποθεσία</a>
+    </nav>
+    <a href="#contact" class="btn-fire mobile-cta">
+      <span>Επικοινωνία</span>
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
 
   <!-- HERO -->
   <header class="hero" id="hero">
@@ -360,27 +380,29 @@
     navbar.classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  /* ── HAMBURGER ── */
-  const ham      = document.getElementById('hamburger');
-  const nl       = document.getElementById('navLinks');
-  const backdrop = document.getElementById('backdrop');
+  /* ── MOBILE MENU ── */
+  const ham         = document.getElementById('hamburger');
+  const mobilePanel = document.getElementById('mobilePanel');
+  const backdrop    = document.getElementById('backdrop');
+  const mobileClose = document.getElementById('mobileClose');
 
   function openMenu() {
-    nl.classList.add('open');
-    ham.classList.add('active');
+    mobilePanel.classList.add('open');
     backdrop.classList.add('open');
-    document.body.style.overflow = 'hidden';
+    ham.classList.add('active');
+    document.documentElement.style.overflow = 'hidden';
   }
   function closeMenu() {
-    nl.classList.remove('open');
-    ham.classList.remove('active');
+    mobilePanel.classList.remove('open');
     backdrop.classList.remove('open');
-    document.body.style.overflow = '';
+    ham.classList.remove('active');
+    document.documentElement.style.overflow = '';
   }
 
-  ham.addEventListener('click', () => nl.classList.contains('open') ? closeMenu() : openMenu());
+  ham.addEventListener('click', () => mobilePanel.classList.contains('open') ? closeMenu() : openMenu());
+  mobileClose.addEventListener('click', closeMenu);
   backdrop.addEventListener('click', closeMenu);
-  document.querySelectorAll('.nav-a,.nav-cta').forEach(a => a.addEventListener('click', closeMenu));
+  document.querySelectorAll('.mnav-a, .mobile-cta').forEach(a => a.addEventListener('click', closeMenu));
 
   /* ── SCROLL REVEAL ── */
   const revealEls = document.querySelectorAll('.reveal, .reveal-gallery');
