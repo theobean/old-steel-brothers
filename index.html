@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Old Steel Brothers – Επισκευές & Αναπαλαιώσεις</title>
-  <!-- Scroll to top instantly before render, prevents browser scroll restoration -->
-  <script>history.scrollRestoration = 'manual'; window.scrollTo(0, 0);</script>
+  <script>if('scrollRestoration' in history) history.scrollRestoration = 'manual';</script>
   <link rel="stylesheet" href="styles.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -289,6 +288,11 @@
   </footer>
 
   <script>
+  /* SCROLL TO TOP — covers both hard refresh and bfcache restore (iOS Safari) */
+  window.addEventListener('pageshow', (e) => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  });
+
   /* LOADER */
   window.addEventListener('load', () => {
     setTimeout(() => document.getElementById('loader').classList.add('out'), 1000);
