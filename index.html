@@ -164,29 +164,46 @@
     <div class="section-cut-bottom dark"></div>
   </section>
 
-  <!-- STATS -->
+  <!-- STATS / GAUGES -->
   <section id="stats" class="stats">
     <div class="container">
-      <div class="stats-row">
-        <div class="stat reveal" data-delay="0">
-          <div class="stat-val"><span class="count" data-to="500">0</span>+</div>
-          <div class="stat-lbl">Επισκευές</div>
+      <div class="sec-label reveal">// ΕΜΠΕΙΡΙΑ</div>
+      <h2 class="sec-title reveal">ΟΙ ΑΡΙΘΜΟΙ ΜΑΣ</h2>
+      <div class="gauge-grid">
+
+        <div class="gauge-item reveal" data-delay="0">
+          <svg class="gauge-svg" viewBox="0 0 160 160" data-to="500" data-suffix="+" data-pct="83">
+            <defs>
+              <filter id="red-glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+          </svg>
+          <div class="gauge-label">Επισκευές</div>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat reveal" data-delay="120">
-          <div class="stat-val"><span class="count" data-to="15">0</span>+</div>
-          <div class="stat-lbl">Χρόνια Εμπειρίας</div>
+
+        <div class="gauge-item reveal" data-delay="150">
+          <svg class="gauge-svg" viewBox="0 0 160 160" data-to="15" data-suffix="+" data-pct="75">
+            <defs><use href="#red-glow"/></defs>
+          </svg>
+          <div class="gauge-label">Χρόνια Εμπειρίας</div>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat reveal" data-delay="240">
-          <div class="stat-val"><span class="count" data-to="80">0</span>+</div>
-          <div class="stat-lbl">Ιστορικά Οχήματα</div>
+
+        <div class="gauge-item reveal" data-delay="300">
+          <svg class="gauge-svg" viewBox="0 0 160 160" data-to="80" data-suffix="+" data-pct="80">
+            <defs><use href="#red-glow"/></defs>
+          </svg>
+          <div class="gauge-label">Ιστορικά Οχήματα</div>
         </div>
-        <div class="stat-divider"></div>
-        <div class="stat reveal" data-delay="360">
-          <div class="stat-val"><span class="count" data-to="100">0</span>%</div>
-          <div class="stat-lbl">Ικανοποίηση</div>
+
+        <div class="gauge-item reveal" data-delay="450">
+          <svg class="gauge-svg" viewBox="0 0 160 160" data-to="100" data-suffix="%" data-pct="100">
+            <defs><use href="#red-glow"/></defs>
+          </svg>
+          <div class="gauge-label">Ικανοποίηση</div>
         </div>
+
       </div>
     </div>
   </section>
@@ -327,21 +344,131 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal,.reveal-g').forEach(el => ro.observe(el));
 
-  /* COUNTERS */
-  const co = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      const el = e.target, to = +el.dataset.to, t0 = performance.now();
-      const run = now => {
-        const p = Math.min((now-t0)/1400,1), v = 1-Math.pow(1-p,3);
-        el.textContent = Math.round(v*to);
-        if(p<1) requestAnimationFrame(run);
-      };
-      requestAnimationFrame(run);
-      co.unobserve(el);
+  /* ── DASHBOARD GAUGES ── */
+  const NS = 'http://www.w3.org/2000/svg';
+  const CX = 80, CY = 80, R = 62;
+  const CIRC      = 2 * Math.PI * R;          // ≈ 389.6
+  const ARC       = CIRC * 0.75;              // 270° sweep ≈ 292.2
+  const GAP       = CIRC * 0.25;              // 90° gap   ≈ 97.4
+  const START_ROT = 135;                       // gap faces straight down
+
+  function mkEl(tag, attrs) {
+    const el = document.createElementNS(NS, tag);
+    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+    return el;
+  }
+
+  document.querySelectorAll('.gauge-svg').forEach(svg => {
+    const pct    = +svg.dataset.pct / 100;
+    const target = +svg.dataset.to;
+    const suffix = svg.dataset.suffix;
+
+    // ── outer decorative ring ──
+    svg.appendChild(mkEl('circle', {
+      cx: CX, cy: CY, r: R + 11,
+      fill: 'none', stroke: '#1c1c1c', 'stroke-width': '1'
+    }));
+
+    // ── tick marks (18 ticks over 270°) ──
+    for (let i = 0; i <= 18; i++) {
+      const deg    = START_ROT + (i / 18) * 270;
+      const rad    = deg * Math.PI / 180;
+      const major  = i % 3 === 0;
+      const rOuter = R + 8;
+      const rInner = major ? R + 1 : R + 4;
+      svg.appendChild(mkEl('line', {
+        x1: CX + rOuter * Math.cos(rad), y1: CY + rOuter * Math.sin(rad),
+        x2: CX + rInner * Math.cos(rad), y2: CY + rInner * Math.sin(rad),
+        stroke: major ? '#3a3a3a' : '#252525',
+        'stroke-width': major ? '2' : '1',
+        'stroke-linecap': 'round'
+      }));
+    }
+
+    // ── background track arc ──
+    svg.appendChild(mkEl('circle', {
+      cx: CX, cy: CY, r: R,
+      fill: 'none', stroke: '#1a1a1a', 'stroke-width': '7',
+      'stroke-dasharray': `${ARC} ${GAP}`,
+      transform: `rotate(${START_ROT} ${CX} ${CY})`
+    }));
+
+    // ── glow arc (blurred, behind) ──
+    const glowArc = mkEl('circle', {
+      cx: CX, cy: CY, r: R,
+      fill: 'none', stroke: '#e8001d', 'stroke-width': '10',
+      'stroke-dasharray': `${ARC} ${GAP}`,
+      'stroke-dashoffset': ARC,           // starts hidden
+      transform: `rotate(${START_ROT} ${CX} ${CY})`,
+      filter: 'url(#red-glow)',
+      opacity: '0.45',
+      'stroke-linecap': 'round'
     });
-  }, { threshold: 0.5 });
-  document.querySelectorAll('.count').forEach(el => co.observe(el));
+    svg.appendChild(glowArc);
+
+    // ── main progress arc ──
+    const arc = mkEl('circle', {
+      cx: CX, cy: CY, r: R,
+      fill: 'none', stroke: '#e8001d', 'stroke-width': '6',
+      'stroke-dasharray': `${ARC} ${GAP}`,
+      'stroke-dashoffset': ARC,           // starts hidden
+      transform: `rotate(${START_ROT} ${CX} ${CY})`,
+      'stroke-linecap': 'round'
+    });
+    svg.appendChild(arc);
+
+    // ── inner circle (face) ──
+    svg.appendChild(mkEl('circle', {
+      cx: CX, cy: CY, r: R - 14,
+      fill: '#0a0a0a', stroke: '#161616', 'stroke-width': '1'
+    }));
+
+    // ── number text ──
+    const numEl = mkEl('text', {
+      x: CX, y: CY + 6, 'text-anchor': 'middle', 'dominant-baseline': 'middle',
+      fill: '#fff', 'font-family': "'Barlow Condensed', sans-serif",
+      'font-size': '28', 'font-weight': '900', 'font-style': 'italic'
+    });
+    numEl.textContent = '0';
+    svg.appendChild(numEl);
+
+    // ── suffix text ──
+    const sufEl = mkEl('text', {
+      x: CX, y: CY + 26, 'text-anchor': 'middle',
+      fill: '#e8001d', 'font-family': "'Barlow Condensed', sans-serif",
+      'font-size': '14', 'font-weight': '700', 'font-style': 'italic'
+    });
+    sufEl.textContent = suffix;
+    svg.appendChild(sufEl);
+
+    // ── animate on scroll into view ──
+    const go = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      go.disconnect();
+
+      const dur   = 1800;
+      const t0    = performance.now();
+      const final = ARC * (1 - pct);  // dashoffset when fully filled
+
+      const tick = now => {
+        const p    = Math.min((now - t0) / dur, 1);
+        const ease = p < 1 ? 1 - Math.pow(1 - p, 3) : 1;  // ease-out cubic
+
+        // arc fill
+        const offset = ARC - ease * ARC * pct;
+        arc.setAttribute('stroke-dashoffset', offset);
+        glowArc.setAttribute('stroke-dashoffset', offset);
+
+        // number counter
+        numEl.textContent = Math.round(ease * target);
+
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.3 });
+
+    go.observe(svg);
+  });
 
   /* PARALLAX HERO */
   const heroBg = document.querySelector('.hero-img');
