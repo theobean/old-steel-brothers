@@ -11,6 +11,9 @@
 </head>
 <body>
 
+  <!-- MOBILE MENU BACKDROP -->
+  <div class="mobile-backdrop" id="backdrop"></div>
+
   <!-- CUSTOM CURSOR -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-dot" id="cursorDot"></div>
@@ -358,15 +361,26 @@
   });
 
   /* ── HAMBURGER ── */
-  const ham = document.getElementById('hamburger');
-  const nl  = document.getElementById('navLinks');
-  ham.addEventListener('click', () => {
-    nl.classList.toggle('open');
-    ham.classList.toggle('active');
-  });
-  document.querySelectorAll('.nav-a,.nav-cta').forEach(a=>a.addEventListener('click',()=>{
-    nl.classList.remove('open'); ham.classList.remove('active');
-  }));
+  const ham      = document.getElementById('hamburger');
+  const nl       = document.getElementById('navLinks');
+  const backdrop = document.getElementById('backdrop');
+
+  function openMenu() {
+    nl.classList.add('open');
+    ham.classList.add('active');
+    backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMenu() {
+    nl.classList.remove('open');
+    ham.classList.remove('active');
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  ham.addEventListener('click', () => nl.classList.contains('open') ? closeMenu() : openMenu());
+  backdrop.addEventListener('click', closeMenu);
+  document.querySelectorAll('.nav-a,.nav-cta').forEach(a => a.addEventListener('click', closeMenu));
 
   /* ── SCROLL REVEAL ── */
   const revealEls = document.querySelectorAll('.reveal, .reveal-gallery');
